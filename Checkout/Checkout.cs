@@ -5,13 +5,20 @@ namespace CheckoutKata
 {
     public class Checkout
     {
-        Dictionary<string, int> _items;
+        private readonly Dictionary<string, int> _items;
+        private readonly List<Discount> _discounts;
 
-        List<string> scannedItems = new List<string>();
+        private List<string> scannedItems = new List<string>();
 
         public Checkout(Dictionary<string, int> items)
         {
             _items = items;
+        }
+
+        public Checkout(Dictionary<string, int> items, List<Discount> discounts)
+        {
+            _items = items;
+            _discounts = discounts;
         }
 
         public void Scan(string item)
