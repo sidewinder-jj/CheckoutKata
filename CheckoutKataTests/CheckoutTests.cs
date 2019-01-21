@@ -80,6 +80,24 @@ namespace CheckoutKataTests
             int sku2Price = items[sku2];
 
             var checkout = new Checkout(items, discounts);
+            var discount = discounts.Find(x => x.Sku == sku1);
+
+            var discountPrice = discount.DiscountPrice;
+            var quantityRequired = discount.QuantityRequired;
+
+            var discountedItemsTotal = (quantityOfSku1 / quantityRequired * discountPrice);
+            var nonDiscountedItemsTotal =
+                (quantityOfSku1 % quantityRequired * sku2Price) + (quantityOfSku2 * sku2Price);
+            var totalPrice = discountedItemsTotal + nonDiscountedItemsTotal;
+
+            checkout.Scan(sku1);
+            checkout.Scan(sku1);
+            checkout.Scan(sku2);
+            checkout.Scan(sku1);
+
+            var result = checkout.GetTotalPrice();
+
+            Assert.Equal(totalPrice, result);
         }
     }
 }
