@@ -14,6 +14,23 @@ namespace CheckoutKataTests
             { "D", 15 }
         };
 
+        List<Discount> discounts = new List<Discount>()
+        {
+           new Discount
+           {
+               DiscountPrice = 130,
+               QuantityRequired = 3,
+               Sku = "A"
+           },
+
+           new Discount
+           {
+               DiscountPrice = 45,
+               QuantityRequired = 2,
+               Sku = "B"
+           }
+        };
+
         [Fact]
         public void GetTotalPrice_ReturnsUnitPrice_OneItemIsScanned()
         {
