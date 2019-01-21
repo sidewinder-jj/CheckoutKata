@@ -5,14 +5,21 @@ namespace CheckoutKata
 {
     public class Checkout
     {
+        Dictionary<string, int> _items;
+
+        List<string> scannedItems = new List<string>();
+
         public Checkout(Dictionary<string, int> items)
         {
-
+            items = _items;
         }
 
-        public void Scan(string sku)
+        public void Scan(string item)
         {
-            throw new NotImplementedException();
+            if (_items.ContainsKey(item))
+            {
+                scannedItems.Add(item);
+            }
         }
 
         public object GetTotalPrice()
