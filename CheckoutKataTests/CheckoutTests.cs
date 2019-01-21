@@ -50,5 +50,19 @@ namespace CheckoutKataTests
 
             Assert.Equal(sum, checkout.GetTotalPrice());
         }
+
+        [Fact]
+        public void GetTotalPrice_AppliesDiscount_DiscountRulesAreSatisfied()
+        {
+            const string sku1 = "A";
+            const string sku2 = "B";
+            const int quantityOfSku1 = 3;
+            const int quantityOfSku2 = 1;
+
+            int sku1Price = items[sku1];
+            int sku2Price = items[sku2];
+
+            var checkout = new Checkout(items, discounts);
+        }
     }
 }
