@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CheckoutKata;
+using System.Collections.Generic;
 using Xunit;
 
 namespace CheckoutKataTests
@@ -20,7 +21,7 @@ namespace CheckoutKataTests
 
             int unitPrice = items[sku];
 
-            var checkout = new Checkout(items, discounts);
+            var checkout = new Checkout(items);
         }
     }
 }
