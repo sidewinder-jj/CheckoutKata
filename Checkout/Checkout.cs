@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace CheckoutKata
 {
-    public class Checkout
+    public class Checkout : ICheckout
     {
         private readonly Dictionary<string, int> _items;
         private readonly List<Discount> _discounts;
@@ -29,7 +29,7 @@ namespace CheckoutKata
             }
         }
 
-        public object GetTotalPrice()
+        public int GetTotalPrice()
         {
             return scannedItems
                 .Select(x => _items[x])
