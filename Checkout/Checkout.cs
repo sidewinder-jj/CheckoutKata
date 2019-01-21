@@ -33,27 +33,7 @@ namespace CheckoutKata
         {
             if (_discounts != null)
             {
-                var totalPrice = 0;
-
-                var itemsByQuantity = scannedItems
-                .GroupBy(x => x)
-                .Select(g => new { Sku = g.Key, Count = g.Count() });
-
-                foreach (var item in itemsByQuantity)
-                {
-                    var quantity = item.Count;
-                    var unitPrice = _items[item.Sku];
-
-                    var discount = (_discounts
-                        .Where(x => x.Sku == item.Sku)
-                        .SingleOrDefault());
-
-                    var discountPrice = discount.DiscountPrice;
-                    var quantityRequired = discount.QuantityRequired;
-
-                    totalPrice += (quantity / quantityRequired * discountPrice);
-                    totalPrice += (quantity % quantityRequired * unitPrice);
-                }
+                var totalPrice = ApplyDiscounts(scannedItems, _discounts);
 
                 return totalPrice;
             }
@@ -61,6 +41,40 @@ namespace CheckoutKata
             return scannedItems
                 .Select(x => _items[x])
                 .Sum(x => x);
+        }
+
+        private int ApplyDiscounts(List<string> items, List<Discount> discounts)
+        {
+            var itemsByQuantity = items
+                .GroupBy(x => x)
+                .Select(g => new ItemByQuantity { Sku = g.Key, Count = g.Count() });
+
+            var price = CalculateDiscounts(itemsByQuantity, discounts);
+
+            return price;
+        }
+
+        private int CalculateDiscounts(IEnumerable<ItemByQuantity> itemsByQuantity, List<Discount> discounts)
+        {
+            var price = 0;
+
+            foreach (var item in itemsByQuantity)
+            {
+                var quantity = item.Count;
+                var unitPrice = _items[item.Sku];
+
+                var discount = (discounts
+                    .Where(x => x.Sku == item.Sku)
+                    .SingleOrDefault());
+
+                    var discountPrice = discount.DiscountPrice;
+                    var quantityRequired = discount.QuantityRequired;
+
+                    price += (quantity / quantityRequired * discountPrice);
+                    price += (quantity % quantityRequired * unitPrice);
+            }
+
+            return price;
         }
     }
 }
