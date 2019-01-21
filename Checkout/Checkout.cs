@@ -14,5 +14,10 @@ namespace CheckoutKata
         {
             throw new NotImplementedException();
         }
+
+        public object GetTotalPrice()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
