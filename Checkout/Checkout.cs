@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CheckoutKata
 {
@@ -7,6 +8,11 @@ namespace CheckoutKata
         public Checkout(Dictionary<string, int> items)
         {
 
+        }
+
+        public void Scan(string sku)
+        {
+            throw new NotImplementedException();
         }
     }
 }
