@@ -24,6 +24,8 @@ namespace CheckoutKataTests
             var checkout = new Checkout(items);
 
             checkout.Scan(sku);
+
+            var result = checkout.GetTotalPrice();
         }
     }
 }
