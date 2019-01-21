@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CheckoutKata
 {
@@ -11,7 +12,7 @@ namespace CheckoutKata
 
         public Checkout(Dictionary<string, int> items)
         {
-            items = _items;
+            _items = items;
         }
 
         public void Scan(string item)
@@ -24,7 +25,9 @@ namespace CheckoutKata
 
         public object GetTotalPrice()
         {
-            throw new NotImplementedException();
+            return scannedItems
+                .Select(x => _items[x])
+                .Sum(x => x);
         }
     }
 }
